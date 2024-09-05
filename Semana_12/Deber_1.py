@@ -1,10 +1,17 @@
-# Crear una matriz 3D para almacenar datos de temperaturas
-# Primera dimensión: Ciudades = ["Guayaquil", "Quito", "Cuenca"]
-# Segunda dimensión: Semanas (4 semanas)
-# Tercera dimensión: Dias de la semana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
+import numpy as np
 
-temperaturas = [
-    [   # Guayaquil
+# Definimos las ciudades y los días de la semana
+# Definimos las dimensiones
+num_ciudades = 3  # Quito, Guayaquil, Cuenca
+num_dias = 7      # Lunes, Martes, Miércoles, Jueves, Viernes, Sábado, Domingo
+num_semanas = 4   # Semana 1, Semana 2, Semana 3, Semana 4
+
+# Creamos una matriz 3D con numpy
+# Dimensiones: [ciudades, días, semanas]
+
+temperaturas = np.zeros((num_ciudades, num_dias, num_semanas))
+temp_variable = [
+    [   # Quito
         [   # Semana 1
             {"day": "Lunes", "temp": 29},
             {"day": "Martes", "temp": 30},
@@ -42,7 +49,7 @@ temperaturas = [
             {"day": "Domingo", "temp": 31}
         ]
     ],
-    [   # Quito
+    [   # Guayaquil
         [   # Semana 1
             {"day": "Lunes", "temp": 22},
             {"day": "Martes", "temp": 24},
@@ -120,10 +127,24 @@ temperaturas = [
     ]
 ]
 
-# Calcular el promedio de temperaturas para cada ciudad y semana
-for ciudad in temperaturas:
-    for semana in ciudad:
-        suma = 0
-        for dia in semana:
-            suma += dia['temp']
-        print(suma)
+
+# Imprimir la matriz
+print("Temperaturas diarias en varias ciudades:")
+ciudades = ["Quito", "Guayaquil", "Cuenca"]
+dias = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
+
+# Llenamos la matriz con datos de temperatura (ejemplo aleatorio)
+for i in range(len(ciudades)):
+    for j in range(len(dias)):
+        for k in range(num_semanas):
+            # Asignamos una temperatura aleatoria entre 15 y 30 grados
+            temperaturas[i][j][k] = np.random.uniform(15, 30)
+
+# Imprimimos la matriz
+for i, ciudad in enumerate(ciudades):
+    print(f"Temperaturas en {ciudad}:")
+    for k in range(num_semanas):
+        print(f"Semana {k + 1}:")
+        for j, dia in enumerate(dias):
+            print(f"  {dia}: {temperaturas[i][j][k]:.2f} °C")
+        print()
